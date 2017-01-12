@@ -1,9 +1,5 @@
 package next.support;
 
-import javax.annotation.PostConstruct;
-import javax.servlet.ServletContextEvent;
-import javax.sql.DataSource;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +7,9 @@ import org.springframework.core.io.ClassPathResource;
 import org.springframework.jdbc.datasource.init.DatabasePopulatorUtils;
 import org.springframework.jdbc.datasource.init.ResourceDatabasePopulator;
 import org.springframework.stereotype.Component;
+
+import javax.annotation.PostConstruct;
+import javax.sql.DataSource;
 
 @Component
 public class DBInitializer {
@@ -20,7 +19,7 @@ public class DBInitializer {
 	private DataSource dataSource;
 
 	@PostConstruct
-	public void contextInitialized(ServletContextEvent sce) {
+	public void contextInitialized() {
 		ResourceDatabasePopulator populator = new ResourceDatabasePopulator();
 		populator.addScript(new ClassPathResource("jwp.sql"));
 		DatabasePopulatorUtils.execute(populator, dataSource);
